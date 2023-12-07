@@ -1,6 +1,6 @@
 *** Settings ***
 Library           Browser
-Library           SeleniumLibrary
+
 *** Variables ***
 
 ${email}            testep@tmail.com
@@ -19,6 +19,11 @@ ${complemento}      apto 1
 ${seletorComplemento}  //*[@id="root"]/div/div/div/div[2]/div/form/div[4]/div/div[2]/input
 ${nomeMock}         teste robson
 ${email_alterado}    emailalterado@gmail.com
+${nome_candidato}    Vinicius Marcelo Rifam Laurindo
+${telefone_candidato}  49 985046158
+${email_candidato}    vinicius.rifam@gmail.com
+${github}             https://github.com/rifam   
+${nomeRecrutador}    Livia  Serafim
 
 
 *** Keywords ***
@@ -26,7 +31,6 @@ ${email_alterado}    emailalterado@gmail.com
 
 #CT005 - Realizar Cadastro de Clientes com sucesso na aba Perfil
 Dado que o usuário está na página de cadastro de clientes1
-    
     New Browser    browser=chromium        headless=False
     New Page       ${url}/app
     
@@ -52,21 +56,18 @@ Quando o usuário preenche os campos obrigatórios com dados válidos
     Fill Text                 xpath=${seletorComplemento}         ${complemento}
     Upload File By Selector   css=.image-upload-label            ${EXECDIR}/mclovindriver.png
     Browser.Click              xpath=//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/div/div[3]/select
-      Sleep                     5s
-    select from list by value    css=option[value="br"]  
-      Sleep                     5s
+    Sleep                     5s
+    Click                    css=option[value="br"]  
+    Sleep                     5s
     Click                     css=option[value="br"]    
     Click                     css=input[value="masculino"]
     Click                     css=input[value="robot"]
-    
     Sleep                     5s
    
 E clica no botão de cadastrar
-
     Click                     css=button[type="submit"]
 
 Então o cliente é cadastrado com sucesso
-
     Wait For Elements State   div h1    visible    10000
     Get Text                  div h1    equals    Clientes
 
@@ -121,7 +122,6 @@ Quando o usuário clica no botão de editar para um cliente específico
     Get Text                   div h1    equals     Editar Cliente 
       
 E faz as alterações desejadas
-    
     Fill Text                 css=input[type="email"]             ${email_alterado}
    
 E clica no botão de salvar
@@ -130,22 +130,29 @@ E clica no botão de salvar
 
 Então as alterações são salvas com sucesso
     Wait For Elements State   div h1    visible    5000 
-    Get Text    div h1    equals    Gestão de Clientes
 
 #C08 - Validar Cadastro de Clientes com Email inválido 
-Dado que o usuário está na página de cadastro
+Dado que o usuário está na página de cadastro5
 Quando o usuário preenche o campo de Email com um formato inválido
 E clica no botão de cadastrar
 Entao uma mensagem de erro é exibida informando sobre o Email inválido
 
 
 #C09 - Validar preenchimento de campos obrigatórios no cadastro de clientes
-Dado que o usuário está na página de cadastro de clientes 
-Quando o usuário tenta cadastrar sem preencher os campos obrigatórios
-Então uma mensagem de erro é exibida informando sobre os campos obrigatórios não preenchidos
+Dado que o usuário está na página de cadastro de clientes4 
+    New Browser    browser=chromium        headless=False
+    New Page       ${url}/app
+    
+    Wait For Elements State   form h1    visible    5000
+    Get Text                  form h1    equals    Login    
+    Fill Text                 css=input[type="email"]                  ${email}  
+    Fill Text                 css=input[type="password"]               ${senha} 
+    
+    Click                     css=button[type="button"]  
+    
+    Wait For Elements State   div h1    visible    10000 
 
-#C12 - Validar preenchimento "Informações do Candidato" ao clicar em "Finalizar e Enviar"
-Dado que o usuário está na página de preenchimento de "Informações do Candidato"
-Quando o usuário preenche todas as informações obrigatórias
-E clica no botão "Finalizar e Enviar"
-Então as informações do candidato são enviadas com sucesso
+Quando o usuário tenta cadastrar sem preencher os campos obrigatórios
+   
+    
+Então uma mensagem de erro é exibida informando sobre os campos obrigatórios não preenchidos

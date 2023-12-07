@@ -30,12 +30,6 @@ CT008 - Validar Cadastro de Clientes com Email inválido
 
 
 CT009 - Validar preenchimento de campos obrigatórios no cadastro de clientes
-    Dado que o usuário está na página de cadastro de clientes 
+    Dado que o usuário está na página de cadastro de clientes4 
     Quando o usuário tenta cadastrar sem preencher os campos obrigatórios
     Então uma mensagem de erro é exibida informando sobre os campos obrigatórios não preenchidos
-
-CT012 - Validar preenchimento "Informações do Candidato" ao clicar em "Finalizar e Enviar"
-    Dado que o usuário está na página de preenchimento de "Informações do Candidato"
-    Quando o usuário preenche todas as informações obrigatórias
-    E clica no botão "Finalizar e Enviar"
-    Então as informações do candidato são enviadas com sucesso

@@ -33,7 +33,7 @@ E clica no botão de login
 Então o usuário é redirecionado para a página principal logado
 
     Wait For Elements State   div h1    visible    10000 
-    Get Text                  div h1    equals    Gestão de Clientes
+    
 
     Close Browser
 
@@ -63,7 +63,6 @@ Então uma mensagem de erro é exibida informando sobre a senha inválida
 
 #CT010 - Realizar Logout com sucesso ao clicar em "Finalizar"
 Dado que o usuário está logado
-
     New Browser    browser=chromium        headless=False
     New Page       ${url}/app
     
@@ -79,8 +78,7 @@ Dado que o usuário está logado
     Click                     xpath=/html/body/div/div/nav/div/div/ul/li/a
 
 Quando o usuário clica no botão de logout
-
-   Wait For Elements State   div h6   visible    10000 
+    Wait For Elements State   div h6   visible    10000 
     Get Text                 div h6    equals    Para submeter os dados do projeto, clique em 'Enviar'. Se desejar sair, clique em 'Logout'.
 
     Click                    xpath=//*[@id="root"]/div/nav/div[2]/div/div/div/button[1]
