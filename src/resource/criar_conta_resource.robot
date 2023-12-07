@@ -1,5 +1,6 @@
 *** Settings ***
-Library      Browser
+Documentation     Criar login e senha
+Library           Browser
 
 
 *** Variables ***
@@ -7,14 +8,14 @@ Library      Browser
 
 ${email}    testep@tmail.com
 ${senha}    123456
-
+${url}      https://challenge.primecontrol.com.br 
 
 *** Keywords ***
 
 #CT001 - Criar uma nova Conta com sucesso
 Dado que o usuário está na página inicial
     New Browser    browser=chromium        headless=False
-    New Page       https://challenge.primecontrol.com.br/
+    New Page       ${url}
     
     Wait For Elements State   div h1    visible    5000 
     Get Text    div h1    equals    Uma plataforma de desafio técnico para testes automatizados.
@@ -50,7 +51,7 @@ Então a conta é criada com sucesso
 Dado que o usuário está na página de cadastro
     
     New Browser    browser=chromium        headless=False
-    New Page       https://challenge.primecontrol.com.br/app/novaconta
+    New Page       ${url}/app/novaconta
 
 
 E um usuário com o mesmo Email já está cadastrado
@@ -69,3 +70,13 @@ Entao uma mensagem de erro é exibida informando sobre o Email duplicado
     
     Wait For Elements State   div[role="alert"]    visible    5000 
     Get Text    div[role="alert"]    equals    Esse email já está em uso por outra conta
+
+#CT008 - Validar Cadastro de Clientes com Email inválido na aba Perfil
+    Dado que o usuário está na página de cadastro de clientes na aba Perfil
+
+    Quando o usuário preenche o campo de Email com um formato inválido
+
+    E clica no botão de cadastrar
+
+    Entao uma mensagem de erro é exibida informando sobre o Email inválido
+
