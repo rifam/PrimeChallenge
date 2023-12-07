@@ -39,3 +39,9 @@ Execute os testes com o seguinte comando:
   ```bash
 robot tests/
    ``` 
+
+
+## Automação API 
+
+Foi disponibilizada a Collecion do Postman também nesse repositorio com o nome do arquivo ChallengePrimeControl.postman_collection na extensão Json
+Bastando importar e "rodar" a mesma no postman local ou web.
