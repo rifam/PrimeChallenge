@@ -1,0 +1,643 @@
+{
+	"info": {
+		"_postman_id": "53b615c9-9838-4400-a492-edd193fd0c77",
+		"name": "ChallengePrimeControl",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31647580"
+	},
+	"item": [
+		{
+			"name": "/listClients",
+			"item": [
+				{
+					"name": "CT002",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Cada cliente deve ter campos válidos\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    jsonData.forEach(function (cliente) {\r",
+									"        pm.expect(cliente).to.have.property('id').to.be.a('string');\r",
+									"        pm.expect(cliente).to.have.property('nome').to.be.a('string');\r",
+									"        pm.expect(cliente).to.have.property('email').to.be.a('string'); // NÃO ESTOU VERIFICANDO CORRETAMENTE \r",
+									"        pm.expect(Number(cliente.fone)).to.be.a('number');\r",
+									"        if (cliente.fotoPerfil !== null) {\r",
+									"            pm.expect(cliente).to.have.property('fotoPerfil').to.match(/^https?:\\/\\/[^\\s]+$/); \r",
+									"        }\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"STRING\",\r\n  \"nome\": \"STRING\",\r\n  \"email\": \"STRING\",\r\n  \"fone\": \"INTEGER\",\r\n  \"fotoPerfil\": \"URL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/listClients",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"listClients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT003",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status da resposta deve ser 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"STRING\",\r\n  \"nome\": \"STRING\",\r\n  \"email\": \"STRING\",\r\n  \"fone\": \"INTEGER\",\r\n  \"fotoPerfil\": \"URL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/endpointInexistente",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"endpointInexistente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT001",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se o status da resposta é 200 (OK)\r",
+									"pm.test(\"Status da resposta deve ser 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Resposta deve ser uma lista de clientes\", function () {\r",
+									"    pm.response.to.be.json; \r",
+									"    pm.response.to.have.jsonBody();\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"STRING\",\r\n  \"nome\": \"STRING\",\r\n  \"email\": \"STRING\",\r\n  \"fone\": \"INTEGER\",\r\n  \"fotoPerfil\": \"URL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/listClients",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"listClients"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/addCliente",
+			"item": [
+				{
+					"name": "CT001",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se o status da resposta é 200 (OK)\r",
+									"pm.test(\"Status da resposta deve ser 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Verifica se a resposta contém a mensagem de sucesso e o ID do usuário\r",
+									"pm.test(\"Resposta deve conter mensagem de sucesso e ID do usuário\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.json()).to.have.property('message', 'Sucesso ao adicionar o cliente');\r",
+									"    pm.expect(pm.response.json()).to.have.property('id').to.be.a('string');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Nome do Cliente\",\r\n  \"email\": \"cliente@email.com\",\r\n  \"fone\": 123456789,\r\n  \"fotoPerfil\": \"http://url-da-foto.com\",\r\n  \"cep\": \"12345-678\",\r\n  \"endereco\": \"Endereço do Cliente\",\r\n  \"complemento\": \"Complemento do Endereço\",\r\n  \"pais\": \"Nome do País\",\r\n  \"genero\": \"Masculino\",\r\n  \"ferramentas\": [\"Ferramenta1\", \"Ferramenta2\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/addclient",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"addclient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT002",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se o status da resposta é 400 (Bad Request) indicando um erro de solicitação\r",
+									"pm.test(\"Erro ao não fornecer o campo 'nome'\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"// Verifica se a resposta contém a mensagem indicando que o campo 'nome' é obrigatório\r",
+									"pm.test(\"Erro deve indicar que o campo 'nome' é obrigatório\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('message', 'Informe o nome');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"cliente@email.com\",\r\n  \"fone\": 123456789,\r\n  \"fotoPerfil\": \"http://url-da-foto.com\",\r\n  \"cep\": \"12345-678\",\r\n  \"endereco\": \"Endereço do Cliente\",\r\n  \"complemento\": \"Complemento do Endereço\",\r\n  \"pais\": \"Nome do País\",\r\n  \"genero\": \"Masculino\",\r\n  \"ferramentas\": [\"Ferramenta1\", \"Ferramenta2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/addclient",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"addclient"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT003",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"CT003 - Teste de validação do e-mail e URL do perfil\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    // Verifica se o status da resposta é 400 (Bad Request) indicando um erro de solicitação\r",
+									"    pm.expect(pm.response.code).to.equal(400);\r",
+									"\r",
+									"    // Verifica se a resposta contém a mensagem de erro indicando o formato inválido do e-mail\r",
+									"    pm.test(\"Erro deve indicar que o formato do e-mail é inválido\", function () {\r",
+									"        pm.expect(jsonData).to.have.property('message', 'E-mail em formato inválido.');\r",
+									"    });\r",
+									"\r",
+									"    // Verifica se a resposta contém a mensagem de erro indicando que a URL do perfil é inválida\r",
+									"    pm.test(\"Erro deve indicar que a URL do perfil é inválida\", function () {\r",
+									"        pm.expect(jsonData).to.have.property('message', 'URL incorreta.');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Nome do Cliente\",\r\n  \"email\": \"clienteemail.com\",\r\n  \"fone\": 123456789,\r\n  \"fotoPerfil\": \"abadaura teste\",\r\n  \"cep\": \"12345-678\",\r\n  \"endereco\": \"Endereço do Cliente\",\r\n  \"complemento\": \"Complemento do Endereço\",\r\n  \"pais\": \"Nome do País\",\r\n  \"genero\": \"Masculino\",\r\n  \"ferramentas\": [\"Ferramenta1\", \"Ferramenta2\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/addclient",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"addclient"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/deleteClient/{id}",
+			"item": [
+				{
+					"name": "CT001",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verifica se o status da resposta é 200 (OK)\r",
+									"pm.test(\"Status da resposta deve ser 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Verifica se a resposta contém a mensagem de exclusão bem-sucedida\r",
+									"pm.test(\"Resposta deve conter mensagem de exclusão bem-sucedida\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('message', 'Cliente excluído com sucesso!');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/deleteClient/WNpFpu0c4d71luvkwv21",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"deleteClient",
+								"WNpFpu0c4d71luvkwv21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT002",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"CT002 - Teste de exclusão com ID inválido\", function () {\r",
+									"    pm.sendRequest({\r",
+									"        url: 'http://seuservidor.com/deleteClient/5ph5EhlhWrpWXaxyJenQ', \r",
+									"        method: 'DELETE',\r",
+									"    }, function (response) {\r",
+									"        pm.expect(response.code).to.equal(404);\r",
+									"        pm.expect(response.json()).to.have.property('message', 'Cliente não encontrado');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/deleteClient/WNpFpu0c4d71luvkwv21",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"deleteClient",
+								"WNpFpu0c4d71luvkwv21"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT003",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"CT003 - Teste de exclusão sem ID\", function () {\r",
+									"    // Envie a solicitação de exclusão sem fornecer um ID\r",
+									"    pm.sendRequest({\r",
+									"        url: 'http://seuservidor.com/deleteClient', \r",
+									"        method: 'DELETE',\r",
+									"    }, function (response) {\r",
+									"        pm.expect(response.code).to.equal(400);\r",
+									"        pm.expect(response.json()).to.have.property('error', 'ID do cliente não fornecido');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://api-challenge.primecontrol.com.br/deleteClient/",
+							"protocol": "http",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"deleteClient",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/updateClient/{id}",
+			"item": [
+				{
+					"name": "CT001",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"// Teste de atualização bem-sucedida\r",
+									"pm.test(\"CT001 - Teste de atualização bem-sucedida\", function () {\r",
+									"    // Envie a solicitação de atualização com um ID válido e campos opcionais para atualização\r",
+									"    pm.sendRequest({\r",
+									"        url: 'http://seuservidor.com/updateClient/HXQTs6hQuCFqNnbobKPx', \r",
+									"        method: 'PUT', \r",
+									"        header: {\r",
+									"            'Content-Type': 'application/json'\r",
+									"        },\r",
+									"        body: {\r",
+									"            mode: 'raw',\r",
+									"            raw: JSON.stringify({\r",
+									"                \"nome\": \"Novo Nome\",\r",
+									"                \"email\": \"novo@email.com\",\r",
+									"                \"fone\": 987654321,\r",
+									"                \"fotoPerfil\": \"http://nova-url-da-foto.com\"\r",
+									"            })\r",
+									"        }\r",
+									"    }, function (response) {\r",
+									"        // Verifica se o status da resposta é 200 (OK) ou outro código apropriado para atualização bem-sucedida\r",
+									"        pm.expect(response.code).to.equal(200);\r",
+									"\r",
+									"        // Verifica se a resposta contém a mensagem de atualização bem-sucedida\r",
+									"        pm.expect(response.json()).to.have.property('message', 'Cliente atualizado com sucesso!');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://api-challenge.primecontrol.com.br/updateClient/HXQTs6hQuCFqNnbobKPx",
+							"protocol": "https",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"updateClient",
+								"HXQTs6hQuCFqNnbobKPx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT002",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Teste de cliente não encontrado\r",
+									"pm.test(\"CT002 - Teste de cliente não encontrado\", function () {\r",
+									"    pm.sendRequest({\r",
+									"        url: 'http://seuservidor.com/updateClient/dsfsdfdsfsd', \r",
+									"        method: 'PATCH',\r",
+									"        header: {\r",
+									"            'Content-Type': 'application/json'\r",
+									"        },\r",
+									"        body: {\r",
+									"            mode: 'raw',\r",
+									"            raw: JSON.stringify({\r",
+									"                \"nome\": \"Novo Nome do Cliente\",\r",
+									"                \"email\": \"novo@email.com\",\r",
+									"                \"fone\": 987654321,\r",
+									"                \"fotoPerfil\": \"http://nova-url-da-foto.com\"\r",
+									"            })\r",
+									"        }\r",
+									"    }, function (response) {\r",
+									"        pm.expect(response.code).to.equal(404);\r",
+									"        pm.expect(response.json()).to.have.property('message', 'Cliente não encontrado.');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://api-challenge.primecontrol.com.br/updateClient/dsfdsfdsfdsfsdfds",
+							"protocol": "http",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"updateClient",
+								"dsfdsfdsfdsfsdfds"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CT003",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Teste de atualização sem campos\r",
+									"pm.test(\"CT003 - Teste de atualização sem campos\", function () {\r",
+									"    // Envie a solicitação de atualização sem fornecer campos\r",
+									"    pm.sendRequest({\r",
+									"        url: 'http://seuservidor.com/updateClient/HXQTs6hQuCFqNnbobKPx', // Substitua \"seuservidor.com\" e \"123\" pelo seu servidor e ID real\r",
+									"        method: 'PUT', // ou 'PATCH' dependendo do método usado para atualização\r",
+									"        header: {\r",
+									"            'Content-Type': 'application/json'\r",
+									"        },\r",
+									"        body: {\r",
+									"            mode: 'raw',\r",
+									"            raw: JSON.stringify({})\r",
+									"        }\r",
+									"    }, function (response) {\r",
+									"        // Verifica se o status da resposta é 400 (Bad Request) ou outro código apropriado para solicitação inválida\r",
+									"        pm.expect(response.code).to.equal(400);\r",
+									"\r",
+									"        // Verifica se a resposta contém a mensagem apropriada para solicitação inválida sem campos\r",
+									"        pm.expect(response.json()).to.have.property('error', 'Ao menos um campo deve ser fornecido para atualização.');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://api-challenge.primecontrol.com.br/updateClient/HXQTs6hQuCFqNnbobKPx",
+							"protocol": "http",
+							"host": [
+								"api-challenge",
+								"primecontrol",
+								"com",
+								"br"
+							],
+							"path": [
+								"updateClient",
+								"HXQTs6hQuCFqNnbobKPx"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
