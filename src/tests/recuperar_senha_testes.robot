@@ -3,8 +3,6 @@
 Resource    ../resource/recuperar_senha_resource.robot
 
 
-
-
 *** Test Cases ***
 CT011 - Recuperar senha de acesso
     Dado que o usuário está na página de recuperação de senha

@@ -24,7 +24,6 @@ Dado que o usuário está na página inicial
     Get Text    div h1    equals    Criar Conta
 
 Quando o usuário preenche os campos obrigatórios com dados válidos
-    
     Wait For Elements State   div h1    visible    5000
     Get Text    div h1    equals    Criar Conta
 
@@ -33,14 +32,12 @@ Quando o usuário preenche os campos obrigatórios com dados válidos
 
 
 E clica no botão de criar conta
-
     Click       css=button[type="button"]
     Sleep       3s
     Fill Text  css=input[type="password"]               ${senha}
     Click       css=button[type="button"]
 
 Então a conta é criada com sucesso
-
     Wait For Elements State   div h1    visible    5000 
     Get Text    div h1    equals    Gestão de Clientes
 
@@ -48,14 +45,11 @@ Então a conta é criada com sucesso
 
 #CT002 - Validar criação de uma conta com Email já cadastrado
 
-Dado que o usuário está na página de cadastro
-    
+Dado que o usuário está na página de cadastro 
     New Browser    browser=chromium        headless=False
     New Page       ${url}/app/novaconta
 
-
-E um usuário com o mesmo Email já está cadastrado
-    
+E um usuário com o mesmo Email já está cadastrado 
     Wait For Elements State   div h1    visible    5000
     Get Text    div h1    equals    Criar Conta
 
@@ -63,20 +57,10 @@ E um usuário com o mesmo Email já está cadastrado
     Fill Text  css=input[type="password"]               ${senha}
 
 Quando o usuário tenta criar uma conta com o mesmo Email
-
     Click       css=button[type="button"]
 
 Entao uma mensagem de erro é exibida informando sobre o Email duplicado
-    
     Wait For Elements State   div[role="alert"]    visible    5000 
     Get Text    div[role="alert"]    equals    Esse email já está em uso por outra conta
 
-#CT008 - Validar Cadastro de Clientes com Email inválido na aba Perfil
-    Dado que o usuário está na página de cadastro de clientes na aba Perfil
-
-    Quando o usuário preenche o campo de Email com um formato inválido
-
-    E clica no botão de cadastrar
-
-    Entao uma mensagem de erro é exibida informando sobre o Email inválido
 

@@ -18,9 +18,3 @@ CT002 - Validar criação de uma conta com Email já cadastrado
     E um usuário com o mesmo Email já está cadastrado 
     Quando o usuário tenta criar uma conta com o mesmo Email
     Entao uma mensagem de erro é exibida informando sobre o Email duplicado
-
-CT008 - Validar Cadastro de Clientes com Email inválido na aba Perfil
-    Dado que o usuário está na página de cadastro de clientes na aba Perfil
-    Quando o usuário preenche o campo de Email com um formato inválido
-    E clica no botão de cadastrar
-    Entao uma mensagem de erro é exibida informando sobre o Email inválido
