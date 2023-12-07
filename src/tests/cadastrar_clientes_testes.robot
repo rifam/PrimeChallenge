@@ -11,14 +11,12 @@ CT005 - Realizar Cadastro de Clientes com sucesso na aba Perfil
     Então o cliente é cadastrado com sucesso
 
 CT006 - Validar Pesquisa de Cliente recém cadastrado e exibição dos dados em tela
-    #Dado que o usuário está na página de pesquisa de clientes
-    E um cliente foi cadastrado recentemente
+    Dado que o usuário está na página de pesquisa de clientes2
     Quando o usuário pesquisa pelo cliente recém cadastrado
     Então os dados do cliente são exibidos corretamente em tela
 
 CT007 - Editar Cliente através do botão na listagem de clientes
-    #Dado que o usuário está na página de listagem de clientes
-    E existem clientes cadastrados
+    Dado que o usuário está na página de listagem de clientes3
     Quando o usuário clica no botão de editar para um cliente específico
     E faz as alterações desejadas
     E clica no botão de salvar
