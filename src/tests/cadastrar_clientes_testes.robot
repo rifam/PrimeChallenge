@@ -1,13 +1,13 @@
 *** Settings ***
-Documentation     Testes de Cadastro de Clientes
+Resource    ../resource/cadastrar_clientes_resource.robot
 
 
 
 *** Test Cases ***
-#CT005 - Realizar Cadastro de Clientes com sucesso na aba Perfil
+CT005 - Realizar Cadastro de Clientes com sucesso na aba Perfil
     Dado que o usuário está na página de cadastro de clientes na aba Perfil
     Quando o usuário preenche os campos obrigatórios com dados válidos
-    And clica no botão de cadastrar
+    E clica no botão de cadastrar
     Então o cliente é cadastrado com sucesso
 
 #CT006 - Validar Pesquisa de Cliente recém cadastrado e exibição dos dados em tela
