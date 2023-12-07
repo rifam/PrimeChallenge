@@ -1,5 +1,4 @@
 *** Settings ***
-
 Resource    ../resource/recuperar_senha_resource.robot
 
 

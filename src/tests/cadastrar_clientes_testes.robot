@@ -5,19 +5,19 @@ Resource    ../resource/cadastrar_clientes_resource.robot
 
 *** Test Cases ***
 CT005 - Realizar Cadastro de Clientes com sucesso na aba Perfil
-    Dado que o usuário está na página de cadastro de clientes na aba Perfil
+    Dado que o usuário está na página de cadastro de clientes1
     Quando o usuário preenche os campos obrigatórios com dados válidos
     E clica no botão de cadastrar
     Então o cliente é cadastrado com sucesso
 
 CT006 - Validar Pesquisa de Cliente recém cadastrado e exibição dos dados em tela
-    Dado que o usuário está na página de pesquisa de clientes
+    #Dado que o usuário está na página de pesquisa de clientes
     E um cliente foi cadastrado recentemente
     Quando o usuário pesquisa pelo cliente recém cadastrado
     Então os dados do cliente são exibidos corretamente em tela
 
 CT007 - Editar Cliente através do botão na listagem de clientes
-    Dado que o usuário está na página de listagem de clientes
+    #Dado que o usuário está na página de listagem de clientes
     E existem clientes cadastrados
     Quando o usuário clica no botão de editar para um cliente específico
     E faz as alterações desejadas

@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     Teste de recuperação de senha
 Library           Browser
 
 
@@ -24,7 +25,7 @@ Quando o usuário insere seu Email válido e solicita a recuperação
 
     Fill Text  css=input[type="email"]                  ${email}
     Click       css=button[type="button"]
-    
+
 Então uma mensagem de sucesso é exibida informando sobre o processo de recuperação
 
     Wait For Elements State   div[role="alert"]    visible    5000 
