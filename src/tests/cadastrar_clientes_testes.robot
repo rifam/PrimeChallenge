@@ -28,3 +28,9 @@ CT005 - Realizar Cadastro de Clientes com sucesso na aba Perfil
     Dado que o usuário está na página de cadastro de clientes na aba Perfil
     Quando o usuário tenta cadastrar sem preencher os campos obrigatórios
     Então uma mensagem de erro é exibida informando sobre os campos obrigatórios não preenchidos
+
+#CT012 - Validar preenchimento "Informações do Candidato" ao clicar em "Finalizar e Enviar"
+    Dado que o usuário está na página de preenchimento de "Informações do Candidato"
+    Quando o usuário preenche todas as informações obrigatórias
+    E clica no botão "Finalizar e Enviar"
+    Então as informações do candidato são enviadas com sucesso
